@@ -1,0 +1,115 @@
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-android-extensions'
+    id 'kotlin-kapt'
+}
+
+android {
+    compileSdk 30
+
+    defaultConfig {
+        applicationId "com.example.test_aspirantes_mobile"
+        minSdk 21
+        targetSdk 30
+        versionCode 1
+        versionName "1.0.0"
+        multiDexEnabled true
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    packagingOptions {
+        pickFirst 'META-INF/kotlinx-io.kotlin_module'
+        pickFirst 'META-INF/atomicfu.kotlin_module'
+        pickFirst 'META-INF/kotlinx-coroutines-io.kotlin_module'
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+    buildFeatures {
+        viewBinding true
+    }
+
+    flavorDimensions "version"
+    productFlavors{
+        staging{
+            buildConfigField("String","BASE_URL",'"http://stage-api.cinepolis.com/"')
+        }
+    }
+
+    tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
+        kotlinOptions {
+            jvmTarget = "1.8"
+        }
+    }
+}
+
+def coroutines = '1.5.0'
+
+dependencies {
+
+    implementation 'androidx.core:core-ktx:1.6.0'
+    implementation 'androidx.appcompat:appcompat:1.3.1'
+    implementation 'com.google.android.material:material:1.4.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.0'
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.3.5'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.3.5'
+    testImplementation 'junit:junit:4.+'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+
+    //SERIALIZATION JSON
+    implementation("com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:0.8.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.2.2")
+    //SERIALIZATION JSON
+
+
+    //MULTIDEX
+    implementation 'androidx.multidex:multidex:2.0.1'
+    implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+    //MULTIDEX
+
+    //PICASSO
+    implementation 'com.squareup.picasso:picasso:2.71828'
+    //PICASSO
+
+    //COROUTINES
+    api "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines"
+    api "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines"
+    //COROUTINES
+
+
+    //RETROFIT
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.google.code.gson:gson:2.8.7'
+    implementation 'com.squareup.okhttp3:okhttp:4.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.6.0'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.13'
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.6.0'
+    //RETROFIT
+
+    //VIEWMODEL
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.3.1"
+    implementation 'org.apache.commons:commons-text:1.8'
+    //VIEWMODEL
+
+    //JODA TIME
+    implementation 'joda-time:joda-time:2.10.9'
+    //JODA TIME
+
+    apply plugin: 'kotlinx-serialization'
+    apply plugin: 'com.android.application'
+}

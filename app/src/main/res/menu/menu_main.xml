@@ -1,0 +1,17 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.test_aspirantes_mobile.MainActivity">
+    <item
+        android:id="@+id/action_menu_billboard"
+        android:orderInCategory="100"
+        android:title="@string/str_cartelera"
+        app:showAsAction="ifRoom"
+        android:icon="@drawable/movie"/>
+
+    <item
+        android:id="@+id/action_menu_profile"
+        android:orderInCategory="100"
+        android:title="@string/str_profile"
+        app:showAsAction="ifRoom" />
+</menu>
