@@ -1,4 +1,4 @@
-package com.example.test_aspirantes_mobile
+package com.example.test_aspirantes_mobile.views
 
 import android.app.Application
 import android.content.Context

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Test_Aspirantes_mobile</string>
+    <string name="app_name">Cinema</string>
     <string name="action_settings">Settings</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
@@ -12,8 +12,12 @@
 
     <string name="str_cartelera">Cartelera</string>
     <string name="str_username">Username</string>
+    <string name="str_username_error">Debe de ingresar un usuario</string>
     <string name="str_password">Password</string>
+    <string name="str_password_error">Debe de ingresar una contraseña</string>
     <string name="str_iniciar_sesion">Inciar sesión</string>
     <string name="str_billboard">Cartelera</string>
     <string name="str_profile">Perfil</string>
+    <string name="str_logout">Cerrar sesión</string>
+
 </resources>

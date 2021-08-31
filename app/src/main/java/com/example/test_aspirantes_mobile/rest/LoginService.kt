@@ -3,8 +3,8 @@ package com.example.test_aspirantes_mobile.rest
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
-import com.example.test_aspirantes_mobile.Constants
-import com.example.test_aspirantes_mobile.MyApplication
+import com.example.test_aspirantes_mobile.utils.Constants
+import com.example.test_aspirantes_mobile.views.MyApplication
 import com.example.test_aspirantes_mobile.model.LoginResponse
 import com.example.test_aspirantes_mobile.utils.Utils
 import org.joda.time.DateTime
@@ -15,8 +15,6 @@ class LoginService(private val ctx: Context) {
 
     private var cinemas: CinemasServices? = null
     private var pref: SharedPreferences? = null
-    private var u: Utils? = null
-
 
     private val sharedPreferences: SharedPreferences?
         get() {
@@ -34,23 +32,13 @@ class LoginService(private val ctx: Context) {
             return cinemas!!
         }
 
-    private val utils: Utils
-        get() {
-            if (u == null) {
-                u = Utils()
-            }
-            return u!!
-        }
-
-    val isLogged: Boolean get() = sharedPreferences!!.contains(Constants.TOKEN)
-
 
     @SuppressLint("Assert")
     @Throws(IOException::class)
     internal fun getAccessToken(): String? {
         if(Utils.checkWIFI(MyApplication.appContext!!)){
             val expTime = sharedPreferences!!.getLong(Constants.CINEMAS_CURRENT_TIME, 0)
-            val expires_in = sharedPreferences!!.getString(Constants.EXPIRES_IN,"").toString();
+            val expires_in = sharedPreferences!!.getLong(Constants.EXPIRES_IN,0L).toString()
             val result = Minutes.minutesBetween(DateTime(expTime), DateTime(Utils.getCurrentTimeStamp()))
                 .isGreaterThan(Minutes.minutes(Utils.getHours(expires_in)))
             if (!result) {

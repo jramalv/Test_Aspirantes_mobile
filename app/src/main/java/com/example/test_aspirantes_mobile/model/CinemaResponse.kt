@@ -36,6 +36,6 @@ data class CinemaResponse(
     val position:Int = 0,
 
     @SerialName("settings")
-    val settings:Settings
+    val setting:Setting
 
 )

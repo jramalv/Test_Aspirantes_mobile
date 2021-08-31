@@ -4,7 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class Sizes(
+data class Size(
     @SerialName("large")
     val large:String = "",
 

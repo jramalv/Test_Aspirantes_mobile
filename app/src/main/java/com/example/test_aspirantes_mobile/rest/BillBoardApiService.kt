@@ -11,7 +11,6 @@ import retrofit2.http.Query
 
 interface BillBoardApiService {
 
-    @FormUrlEncoded
     @Headers("api_key: stage_HNYh3RaK_Test")
     @GET("v1/members/profile?country_code=MX")
     suspend fun Profile(): Response<ProfileResponse>
@@ -23,9 +22,8 @@ interface BillBoardApiService {
         @Query("cities") cities:String,
         @Query("country_code")country_code:String,
         @Query("include_cinemas")include_cinemas:Boolean
-    ):Response<CinemaResponse>
+    ):Response<ArrayList<CinemaResponse>>
 
-    @FormUrlEncoded
     @Headers("api_key: stage_HNYh3RaK_Test")
     @GET("v2/movies")
     suspend fun getBillBoard(

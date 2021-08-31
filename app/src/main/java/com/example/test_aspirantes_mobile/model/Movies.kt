@@ -14,8 +14,8 @@ data class Movies(
     @SerialName("cast")
     val cast:ArrayList<Cast>?,
 
-    @SerialName("cinemas")
-    val cinemas:ArrayList<String>?,
+   /* @SerialName("cinemas")
+    val cinemas:ArrayList<String>?,*/
 
     @SerialName("position")
     val position:Int = 0,
@@ -39,7 +39,7 @@ data class Movies(
     val distributor:String,
 
     @SerialName("id")
-    val id:String,
+    val id:Int,
 
     @SerialName("name")
     val name:String,

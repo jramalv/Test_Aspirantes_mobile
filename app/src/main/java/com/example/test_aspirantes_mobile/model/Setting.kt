@@ -4,7 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class Settings (
+data class Setting (
     @SerialName("is_special_prices")
     val is_special_prices:String ="",
 

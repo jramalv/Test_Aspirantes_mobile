@@ -1,7 +1,6 @@
-package com.example.test_aspirantes_mobile
+package com.example.test_aspirantes_mobile.utils
 
 class Constants {
-
     companion object{
         val CINEMAS ="Cinemas"
         val TOKEN="CinemasToken"
@@ -11,8 +10,8 @@ class Constants {
         val GRANT_TYPE="password"
         val CLIENT_ID="IATestCandidate"
         val CLIENT_SECRET="c840457e777b4fee9b510fbcd4985b68"
-        val DUMMY_USERNAME="pruebas_beto_ia@yahoo.com"
-        val DUMMY_PASSWORD="Pruebas01"
+        val DUMMY_USERNAME:String="pruebas_beto_ia@yahoo.com"
+        val DUMMY_PASSWORD:String="Pruebas01"
         val DUMMY_CARD="1303030981578736"
 
         val ACCESS_TOKEN="CinemasAccessToken"

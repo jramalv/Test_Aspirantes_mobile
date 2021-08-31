@@ -6,5 +6,8 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class BillBoardResponse(
     @SerialName("movies")
-    val movies:ArrayList<Movies>?
+    val movies:ArrayList<Movies>?,
+
+    @SerialName("routes")
+    val routes:ArrayList<Routes>?,
 )

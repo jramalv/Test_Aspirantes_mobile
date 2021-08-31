@@ -2,23 +2,23 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/general_background">
 
    <androidx.constraintlayout.widget.Guideline
        android:id="@+id/guideline3"
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
        android:orientation="vertical"
-       app:layout_constraintGuide_begin="16dp" />
+       app:layout_constraintGuide_begin="20dp" />
 
    <androidx.constraintlayout.widget.Guideline
        android:id="@+id/guideline2"
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
        android:orientation="vertical"
-       app:layout_constraintGuide_end="36dp" />
+       app:layout_constraintGuide_end="20dp" />
 
 
    <androidx.constraintlayout.widget.Guideline
@@ -36,64 +36,92 @@
        android:orientation="horizontal"
        app:layout_constraintGuide_end="20dp" />
 
-   <com.google.android.material.textfield.TextInputLayout
-       android:id="@+id/activity_login_til_username"
+
+    <TextView
+        android:id="@+id/activity_login_tv_app_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|center_horizontal"
+        android:layout_marginTop="136dp"
+        android:gravity="center_horizontal|center_vertical"
+        android:text="@string/app_name"
+        android:textAlignment="gravity"
+        android:textColor="@color/color_white"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/guideline2"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/guideline3"
+        app:layout_constraintTop_toTopOf="@+id/guideline5" />
+
+   <LinearLayout
+       android:id="@+id/linearLayout2"
        android:layout_width="0dp"
        android:layout_height="wrap_content"
-       android:layout_marginTop="200dp"
-       android:hint="@string/str_username"
-       android:textColorHint="@color/black"
+       android:layout_marginTop="52dp"
+       android:orientation="vertical"
        app:layout_constraintEnd_toStartOf="@+id/guideline2"
+       app:layout_constraintHorizontal_bias="0.0"
        app:layout_constraintStart_toStartOf="@+id/guideline3"
-       app:layout_constraintTop_toTopOf="@+id/guideline5">
+       app:layout_constraintTop_toBottomOf="@+id/activity_login_tv_app_name">
 
-      <com.google.android.material.textfield.TextInputEditText
-          android:id="@+id/activity_login_tie_username"
+      <com.google.android.material.textfield.TextInputLayout
+          android:id="@+id/activity_login_til_username"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:inputType="textEmailAddress"
-          android:maxLines="1"
-          android:textColor="@color/black" />
+          android:layout_margin="10dp"
+          android:layout_marginTop="200dp"
+          android:hint="@string/str_username"
+          android:textColorHint="@color/color_black">
 
-   </com.google.android.material.textfield.TextInputLayout>
+         <com.google.android.material.textfield.TextInputEditText
+             android:id="@+id/activity_login_tie_username"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:background="@color/color_white"
+             android:inputType="textEmailAddress"
+             android:maxLines="1"
+             android:textColor="@color/color_black" />
+
+      </com.google.android.material.textfield.TextInputLayout>
 
 
-   <com.google.android.material.textfield.TextInputLayout
-       android:id="@+id/activity_login_til_password"
-       android:layout_width="0dp"
-       android:layout_height="wrap_content"
-       android:hint="@string/str_password"
-       android:textColorHint="@color/black"
-       app:layout_constraintBottom_toTopOf="@+id/button"
-       app:layout_constraintEnd_toStartOf="@+id/guideline2"
-       app:layout_constraintStart_toStartOf="@+id/guideline3"
-       app:layout_constraintTop_toBottomOf="@+id/activity_login_til_username"
-       app:layout_constraintVertical_bias="0.060000002">
-
-      <com.google.android.material.textfield.TextInputEditText
-          android:id="@+id/activity_login_tie_password"
+      <com.google.android.material.textfield.TextInputLayout
+          android:id="@+id/activity_login_til_password"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:inputType="textPassword"
-          android:maxLines="1"
-          android:textColor="@color/black" />
+          android:layout_margin="10dp"
+          android:hint="@string/str_password"
+          android:textColorHint="@color/color_black">
 
-   </com.google.android.material.textfield.TextInputLayout>
+         <com.google.android.material.textfield.TextInputEditText
+             android:id="@+id/activity_login_tie_password"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:background="@color/color_white"
+             android:inputType="textPassword"
+             android:maxLines="1"
+             android:textColor="@color/color_black" />
+
+      </com.google.android.material.textfield.TextInputLayout>
+
+   </LinearLayout>
 
    <Button
-       android:id="@+id/button"
+       android:id="@+id/activity_login_btn_login"
+       android:layout_margin="20dp"
        android:layout_width="0dp"
        android:layout_height="wrap_content"
-       android:layout_marginBottom="56dp"
-       android:background="@android:color/background_dark"
+       android:layout_marginBottom="204dp"
+       android:background="@color/color_white"
        android:text="@string/str_iniciar_sesion"
-       android:textColor="@color/white"
-       android:textSize="20sp"
        android:textAllCaps="false"
-       android:textStyle="normal"
+       android:textColor="@color/color_white"
+       android:textSize="20sp"
        app:layout_constraintBottom_toTopOf="@+id/guideline4"
        app:layout_constraintEnd_toStartOf="@+id/guideline2"
        app:layout_constraintHorizontal_bias="0.0"
-       app:layout_constraintStart_toStartOf="@+id/guideline3" />
+       app:layout_constraintStart_toStartOf="@+id/guideline3"
+       app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

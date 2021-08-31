@@ -3,7 +3,6 @@ package com.example.test_aspirantes_mobile.utils
 import android.annotation.SuppressLint
 import android.content.Context
 import android.net.ConnectivityManager
-import com.example.test_aspirantes_mobile.Constants
 import java.util.concurrent.TimeUnit
 
 class Utils {
@@ -11,11 +10,7 @@ class Utils {
         fun checkWIFI(context: Context): Boolean {
             var isWIFI: Boolean
             val network = isNetworkAvailable(context)
-            if (network) {
-                isWIFI = true
-            } else {
-                isWIFI = false
-            }
+            isWIFI = network
             return isWIFI
         }
 

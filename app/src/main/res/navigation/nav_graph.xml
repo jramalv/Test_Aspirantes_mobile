@@ -7,12 +7,22 @@
 
     <fragment
         android:id="@+id/BillBoardFragment"
-        android:name="com.example.test_aspirantes_mobile.BillBoardFragment"
+        android:name="com.example.test_aspirantes_mobile.views.fragment.BillBoardFragment"
         android:label="@string/str_billboard"
-        tools:layout="@layout/fragment_billboard"/>
+        tools:layout="@layout/fragment_billboard">
+        <action
+            android:id="@+id/action_BillBoardFragment_to_ProfileFragment"
+            app:destination="@id/ProfileFragment" />
+    </fragment>
+
     <fragment
         android:id="@+id/ProfileFragment"
-        android:name="com.example.test_aspirantes_mobile.FragmentProfile"
+        android:name="com.example.test_aspirantes_mobile.views.fragment.FragmentProfile"
         android:label="@string/str_profile"
-        tools:layout="@layout/fragment_profile"/>
+        tools:layout="@layout/fragment_profile">
+        <action
+            android:id="@+id/action_ProfileFragment_to_BillBoardFragment"
+            app:destination="@id/BillBoardFragment" />
+    </fragment>
+
 </navigation>

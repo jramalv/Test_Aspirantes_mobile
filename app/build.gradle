@@ -25,6 +25,11 @@ android {
         }
     }
 
+    lintOptions {
+        checkReleaseBuilds false
+        abortOnError false
+    }
+
     packagingOptions {
         pickFirst 'META-INF/kotlinx-io.kotlin_module'
         pickFirst 'META-INF/atomicfu.kotlin_module'
@@ -109,6 +114,10 @@ dependencies {
     //JODA TIME
     implementation 'joda-time:joda-time:2.10.9'
     //JODA TIME
+
+    //CIRCULAR IMAGEVIEW
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
+    //CIRCULAR IMAGEVIEW
 
     apply plugin: 'kotlinx-serialization'
     apply plugin: 'com.android.application'
