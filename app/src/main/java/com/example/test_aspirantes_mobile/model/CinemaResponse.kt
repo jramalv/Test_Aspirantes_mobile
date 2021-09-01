@@ -38,4 +38,4 @@ data class CinemaResponse(
     @SerialName("settings")
     val setting:Setting
 
-)
+): java.io.Serializable

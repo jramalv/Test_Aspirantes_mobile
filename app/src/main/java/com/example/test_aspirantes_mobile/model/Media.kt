@@ -13,4 +13,4 @@ data class Media(
 
     @SerialName("code")
     val code:String=""
-)
+):java.io.Serializable

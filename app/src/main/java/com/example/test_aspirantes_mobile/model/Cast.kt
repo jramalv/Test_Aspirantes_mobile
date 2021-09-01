@@ -10,4 +10,4 @@ data class Cast(
 
     @SerialName("value")
     val value:ArrayList<String>
-)
+): java.io.Serializable

@@ -19,5 +19,5 @@ data class ProfileResponse (
 
     @SerialName("profile_picture")
     val card_number:String =""
-)
+): java.io.Serializable
 

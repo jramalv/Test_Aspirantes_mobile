@@ -10,4 +10,4 @@ data class Routes(
 
     @SerialName("sizes")
     val sizes:Size?
-)
+): java.io.Serializable

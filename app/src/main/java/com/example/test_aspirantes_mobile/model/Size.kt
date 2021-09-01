@@ -17,4 +17,4 @@ data class Size(
     @SerialName("x-large")
     val xLarge:String = ""
 
-)
+): java.io.Serializable

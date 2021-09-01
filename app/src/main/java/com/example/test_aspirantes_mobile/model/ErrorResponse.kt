@@ -10,5 +10,4 @@ data class ErrorResponse(
 
     @SerialName("error_description")
     var error_description : String=""
-
-)
+):java.io.Serializable

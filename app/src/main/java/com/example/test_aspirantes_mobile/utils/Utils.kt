@@ -3,6 +3,11 @@ package com.example.test_aspirantes_mobile.utils
 import android.annotation.SuppressLint
 import android.content.Context
 import android.net.ConnectivityManager
+import android.widget.ImageView
+import com.example.test_aspirantes_mobile.model.Movies
+import com.example.test_aspirantes_mobile.model.Routes
+import com.squareup.picasso.Picasso
+import java.lang.Exception
 import java.util.concurrent.TimeUnit
 
 class Utils {
@@ -48,7 +53,40 @@ class Utils {
             val hours: Long = TimeUnit.MILLISECONDS.toHours(expires_in.toLong())
             return hours.toInt()
         }
+
+        fun getImageToDisplay(
+            current: Movies, routes: ArrayList<Routes>?,
+            imageView: ImageView,
+            imageType:String
+        ) {
+            try {
+                for (media in current.media!!) {
+                    if (!media.code.isNullOrEmpty() &&
+                        media.code.lowercase().contentEquals(imageType)
+                    ) {
+                        for (route in routes!!) {
+                            if (route.code.lowercase().contentEquals(media.code)) {
+                                if (!route.sizes!!.large.isNullOrEmpty() &&
+                                    !media.resource.isNullOrEmpty()
+                                ) {
+                                    Picasso.get().load(route.sizes!!.large + media.resource)
+                                        .into(imageView)
+                                }
+                            }
+                        }
+
+                    }
+                }
+
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+
+        }
+
     }
+
+
 
 
 }

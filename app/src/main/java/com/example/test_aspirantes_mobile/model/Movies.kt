@@ -14,8 +14,8 @@ data class Movies(
     @SerialName("cast")
     val cast:ArrayList<Cast>?,
 
-   /* @SerialName("cinemas")
-    val cinemas:ArrayList<String>?,*/
+    @SerialName("cinemas")
+    val cinemas:ArrayList<String>?,
 
     @SerialName("position")
     val position:Int = 0,
@@ -49,4 +49,4 @@ data class Movies(
 
     @SerialName("original_name")
     val original_name:String,
-)
+): java.io.Serializable

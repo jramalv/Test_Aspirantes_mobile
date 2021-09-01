@@ -10,4 +10,4 @@ data class BillBoardResponse(
 
     @SerialName("routes")
     val routes:ArrayList<Routes>?,
-)
+): java.io.Serializable

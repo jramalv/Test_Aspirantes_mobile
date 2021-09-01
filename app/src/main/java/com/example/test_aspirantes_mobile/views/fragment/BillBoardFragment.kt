@@ -67,7 +67,7 @@ class BillBoardFragment : Fragment() {
 
     private fun populateBillboardRecycler(billBoardResponse:BillBoardResponse){
         _binding!!.fragmentCarteleraRvCartelera.layoutManager = GridLayoutManager(MyApplication.appContext!!, 2)
-        billBoardAdapter.setBillboard(billBoardResponse)
+        billBoardAdapter.setBillboard(requireActivity(),billBoardResponse)
         _binding!!.fragmentCarteleraRvCartelera.adapter= billBoardAdapter
     }
 

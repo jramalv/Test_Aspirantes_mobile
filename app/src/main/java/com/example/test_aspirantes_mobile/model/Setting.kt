@@ -16,5 +16,5 @@ data class Setting (
 
     @SerialName("vco_merchant_id")
     val vco_merchant_id:String =""
-)
+): java.io.Serializable
 

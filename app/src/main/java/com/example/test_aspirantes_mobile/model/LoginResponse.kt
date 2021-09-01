@@ -33,4 +33,4 @@ data class LoginResponse(
     @SerialName(".expires")
     val expires:String = ""
 
-)
+):java.io.Serializable
