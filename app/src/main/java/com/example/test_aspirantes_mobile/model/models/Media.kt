@@ -1,4 +1,4 @@
-package com.example.test_aspirantes_mobile.model
+package com.example.test_aspirantes_mobile.model.models
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable

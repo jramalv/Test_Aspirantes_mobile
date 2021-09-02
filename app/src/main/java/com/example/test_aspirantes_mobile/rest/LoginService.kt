@@ -5,7 +5,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import com.example.test_aspirantes_mobile.utils.Constants
 import com.example.test_aspirantes_mobile.views.MyApplication
-import com.example.test_aspirantes_mobile.model.LoginResponse
+import com.example.test_aspirantes_mobile.model.models.LoginResponse
 import com.example.test_aspirantes_mobile.utils.Utils
 import org.joda.time.DateTime
 import org.joda.time.Minutes
@@ -43,7 +43,7 @@ class LoginService(private val ctx: Context) {
                 .isGreaterThan(Minutes.minutes(Utils.getHours(expires_in)))
             if (!result) {
                 var token =sharedPreferences!!.getString(Constants.TOKEN_TYPE, "")+" "+
-                        sharedPreferences!!.getString(Constants.TOKEN, "")
+                        sharedPreferences!!.getString(Constants.ACCESS_TOKEN, "")
                 return token
             } else {
                 Utils.saveCurrentTime(ctx, Utils.getCurrentTimeStamp())

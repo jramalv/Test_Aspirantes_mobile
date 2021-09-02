@@ -2,12 +2,12 @@
     <!-- Base application theme. -->
     <style name="Theme.Test_Aspirantes_mobile" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/primary_color</item>
-        <item name="colorPrimaryVariant">@color/primary_color</item>
+        <item name="colorPrimary">@color/color_black</item>
+        <item name="colorPrimaryVariant">@color/color_black</item>
         <item name="colorOnPrimary">@color/color_black</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/secondary_color</item>
-        <item name="colorSecondaryVariant">@color/secondary_color</item>
+        <item name="colorSecondary">@color/color_black</item>
+        <item name="colorSecondaryVariant">@color/color_black</item>
         <item name="colorOnSecondary">@color/color_black</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>

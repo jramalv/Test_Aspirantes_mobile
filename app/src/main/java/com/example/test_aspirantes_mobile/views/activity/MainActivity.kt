@@ -3,20 +3,14 @@ package com.example.test_aspirantes_mobile.views.activity
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
-import android.view.MenuItem
-import android.widget.Switch
 import androidx.navigation.NavController
-import androidx.navigation.NavHostController
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.*
 import com.example.test_aspirantes_mobile.R
 import com.example.test_aspirantes_mobile.R.id.action_menu_billboard
 import com.example.test_aspirantes_mobile.R.id.action_menu_profile
 import com.example.test_aspirantes_mobile.databinding.ActivityMainBinding
-import com.example.test_aspirantes_mobile.views.fragment.BillBoardFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.navigation.NavigationBarView
 
 class MainActivity : AppCompatActivity() {
 

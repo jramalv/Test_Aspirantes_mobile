@@ -1,4 +1,4 @@
-package com.example.test_aspirantes_mobile.model
+package com.example.test_aspirantes_mobile.model.models
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -36,6 +36,6 @@ data class CinemaResponse(
     val position:Int = 0,
 
     @SerialName("settings")
-    val setting:Setting
+    val setting: Setting
 
 ): java.io.Serializable

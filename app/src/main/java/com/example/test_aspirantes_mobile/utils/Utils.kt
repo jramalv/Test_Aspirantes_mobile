@@ -3,12 +3,23 @@ package com.example.test_aspirantes_mobile.utils
 import android.annotation.SuppressLint
 import android.content.Context
 import android.net.ConnectivityManager
+import android.view.View
 import android.widget.ImageView
-import com.example.test_aspirantes_mobile.model.Movies
-import com.example.test_aspirantes_mobile.model.Routes
+import com.airbnb.lottie.LottieAnimationView
+import com.example.test_aspirantes_mobile.model.models.Movies
+import com.example.test_aspirantes_mobile.model.models.Routes
 import com.squareup.picasso.Picasso
 import java.lang.Exception
 import java.util.concurrent.TimeUnit
+import android.R
+import android.icu.number.NumberFormatter.with
+import com.example.test_aspirantes_mobile.views.MyApplication
+import com.squareup.picasso.Callback
+
+import com.squareup.picasso.NetworkPolicy
+
+
+
 
 class Utils {
     companion object{
@@ -39,6 +50,17 @@ class Utils {
             return haveConnectedWifi || haveConnectedMobile
         }
 
+        fun startAnimation(animationView: LottieAnimationView) {
+            animationView.visibility = View.VISIBLE
+            animationView.playAnimation()
+        }
+
+        fun stopAnimation(animationView: LottieAnimationView) {
+            animationView.pauseAnimation()
+            animationView.visibility = View.GONE
+        }
+
+
 
         fun getCurrentTimeStamp(): Long {
             return System.currentTimeMillis()
@@ -57,7 +79,8 @@ class Utils {
         fun getImageToDisplay(
             current: Movies, routes: ArrayList<Routes>?,
             imageView: ImageView,
-            imageType:String
+            imageType:String,
+            context: Context
         ) {
             try {
                 for (media in current.media!!) {
@@ -69,8 +92,7 @@ class Utils {
                                 if (!route.sizes!!.large.isNullOrEmpty() &&
                                     !media.resource.isNullOrEmpty()
                                 ) {
-                                    Picasso.get().load(route.sizes!!.large + media.resource)
-                                        .into(imageView)
+                                    loadImage(context,imageView,route.sizes!!.large + media.resource)
                                 }
                             }
                         }
@@ -82,6 +104,23 @@ class Utils {
                 e.printStackTrace()
             }
 
+        }
+
+        fun loadImage(context: Context,imageView:ImageView,image:String){
+            Picasso.get()
+                .load(image)
+                .networkPolicy(NetworkPolicy.OFFLINE)
+                .into(imageView, object : Callback{
+                    override fun onSuccess() {}
+
+                    override fun onError(e: Exception?) {
+                        Picasso.get().load(image)
+                            .placeholder(R.drawable.stat_sys_warning)
+                            .error(R.drawable.stat_notify_error)
+                            .into(imageView)
+                    }
+
+                })
         }
 
     }

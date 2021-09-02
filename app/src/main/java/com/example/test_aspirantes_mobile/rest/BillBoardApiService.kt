@@ -1,8 +1,8 @@
 package com.example.test_aspirantes_mobile.rest
 
-import com.example.test_aspirantes_mobile.model.BillBoardResponse
-import com.example.test_aspirantes_mobile.model.CinemaResponse
-import com.example.test_aspirantes_mobile.model.ProfileResponse
+import com.example.test_aspirantes_mobile.model.models.BillBoardResponse
+import com.example.test_aspirantes_mobile.model.models.CinemaResponse
+import com.example.test_aspirantes_mobile.model.models.ProfileResponse
 import retrofit2.Response
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
@@ -12,8 +12,8 @@ import retrofit2.http.Query
 interface BillBoardApiService {
 
     @Headers("api_key: stage_HNYh3RaK_Test")
-    @GET("v1/members/profile?country_code=MX")
-    suspend fun Profile(): Response<ProfileResponse>
+    @GET("v1/members/profile")
+    suspend fun Profile(@Query("country_code") country_code:String): Response<ProfileResponse>
 
     @FormUrlEncoded
     @Headers("api_key: stage_HNYh3RaK_Test")

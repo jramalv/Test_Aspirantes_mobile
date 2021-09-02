@@ -23,6 +23,8 @@ class Constants {
         val COUNTRY_CODE="CinemasCountryCode"
         val ISSUED="CinemasIssued"
         val EXPIRES="CinemasExpires"
+
+        val PROFILE="CinemasProfile"
     }
 
 

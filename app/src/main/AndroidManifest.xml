@@ -41,6 +41,11 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Test_Aspirantes_mobile.NoActionBar"/>
 
+        <activity android:name=".views.activity.PlayerActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Test_Aspirantes_mobile.NoActionBar"/>
+
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />

@@ -1,4 +1,4 @@
-package com.example.test_aspirantes_mobile.model
+package com.example.test_aspirantes_mobile.model.models
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -18,6 +18,9 @@ data class ProfileResponse (
     val phone_number:String = "",
 
     @SerialName("profile_picture")
+    val profile_picture:String ="",
+
+    @SerialName("card_number")
     val card_number:String =""
 ): java.io.Serializable
 

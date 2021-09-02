@@ -5,25 +5,23 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.test_aspirantes_mobile.databinding.FragmentBillboardBinding
-import com.example.test_aspirantes_mobile.model.BillBoardResponse
-import com.example.test_aspirantes_mobile.rest.CinemasServices
-import com.example.test_aspirantes_mobile.utils.Constants
-import com.example.test_aspirantes_mobile.utils.ToastUtils
-import com.example.test_aspirantes_mobile.utils.Utils
+import com.example.test_aspirantes_mobile.model.models.BillBoardResponse
+import com.example.test_aspirantes_mobile.model.viewmodel.BillBoardViewModel
 import com.example.test_aspirantes_mobile.views.MyApplication
 import com.example.test_aspirantes_mobile.views.adapter.BillBoardAdapter
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.json.Json
 
 class BillBoardFragment : Fragment() {
 
     private var _binding: FragmentBillboardBinding? = null
     private val binding get() = _binding!!
     private lateinit var billBoardAdapter: BillBoardAdapter
+    private lateinit var billBoardViewModel: BillBoardViewModel
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -36,9 +34,15 @@ class BillBoardFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         billBoardAdapter = BillBoardAdapter()
-        if(Utils.checkWIFI(MyApplication.appContext!!)){
-            getBillBoard()
-        }
+        billBoardViewModel =
+            ViewModelProvider(this).get(BillBoardViewModel::class.java)
+        obtainerBillBoard()
+    }
+
+    private fun obtainerBillBoard(){
+        billBoardViewModel.allBillBoard.observe(requireActivity(), {
+            bindBillBoardRecyclerView(Json.decodeFromString(it[0].data))
+        })
     }
 
     override fun onDestroyView() {
@@ -46,28 +50,11 @@ class BillBoardFragment : Fragment() {
         _binding = null
     }
 
-    private fun getBillBoard(){
-        val service = CinemasServices().webservice
-        CoroutineScope(Dispatchers.IO).launch {
-            withContext(Dispatchers.Main) {
-                var response = service.getBillBoard(Constants.DUMMY_COUNTRY_CODE,Constants.CINEMAS)
-                try{
-                    if(response.isSuccessful){
-                        populateBillboardRecycler(response.body()!!)
-                    }else{
-                        ToastUtils.showErrorToastFromJson(MyApplication.appContext!!,response.errorBody().toString())
-                    }
-                }catch (e:Exception){
-                    e.printStackTrace()
-                }
-            }
-        }
-    }
 
 
-    private fun populateBillboardRecycler(billBoardResponse:BillBoardResponse){
+    private fun bindBillBoardRecyclerView(billBoardResponse: BillBoardResponse){
         _binding!!.fragmentCarteleraRvCartelera.layoutManager = GridLayoutManager(MyApplication.appContext!!, 2)
-        billBoardAdapter.setBillboard(requireActivity(),billBoardResponse)
+        billBoardAdapter.setBillboard(MyApplication.appContext!!,requireActivity(),billBoardResponse)
         _binding!!.fragmentCarteleraRvCartelera.adapter= billBoardAdapter
     }
 

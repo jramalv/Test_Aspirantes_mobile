@@ -1,4 +1,4 @@
-package com.example.test_aspirantes_mobile.model
+package com.example.test_aspirantes_mobile.model.models
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -9,5 +9,5 @@ data class Routes(
     val code:String = "",
 
     @SerialName("sizes")
-    val sizes:Size?
+    val sizes: Size?
 ): java.io.Serializable

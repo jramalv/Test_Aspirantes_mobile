@@ -4,10 +4,15 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import com.example.test_aspirantes_mobile.utils.Constants
 import com.example.test_aspirantes_mobile.R
 import com.example.test_aspirantes_mobile.databinding.ActivityLoginBinding
-import com.example.test_aspirantes_mobile.model.LoginResponse
+import com.example.test_aspirantes_mobile.model.models.BillBoardResponse
+import com.example.test_aspirantes_mobile.model.models.BillBoardTable
+import com.example.test_aspirantes_mobile.model.models.LoginResponse
+import com.example.test_aspirantes_mobile.model.models.ProfileResponse
+import com.example.test_aspirantes_mobile.model.viewmodel.BillBoardViewModel
 import com.example.test_aspirantes_mobile.rest.CinemasServices
 import com.example.test_aspirantes_mobile.utils.ToastUtils
 import com.example.test_aspirantes_mobile.utils.Utils
@@ -16,12 +21,15 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 
 class LoginActvity:AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding
     private lateinit var loginResponse: LoginResponse
     private lateinit var pref:SharedPreferences
+    private lateinit var billBoardViewModel:BillBoardViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,6 +39,8 @@ class LoginActvity:AppCompatActivity() {
         pref = MyApplication.appContext!!.getSharedPreferences(Constants.CINEMAS,0)
         isLogged()
         loginResponse = LoginResponse()
+        billBoardViewModel =
+            ViewModelProvider(this).get(BillBoardViewModel::class.java)
         binding.activityLoginTieUsername.setText(Constants.DUMMY_USERNAME)
         binding.activityLoginTiePassword.setText(Constants.DUMMY_PASSWORD)
         binding.activityLoginBtnLogin.setOnClickListener{
@@ -65,6 +75,7 @@ class LoginActvity:AppCompatActivity() {
 
     private fun Login(binding: ActivityLoginBinding){
         val service = CinemasServices().loginService
+        Utils.startAnimation(binding.animationLoading)
         CoroutineScope(Dispatchers.IO).launch {
             var response = service.Login(
                 Constants.DUMMY_COUNTRY_CODE,
@@ -76,33 +87,88 @@ class LoginActvity:AppCompatActivity() {
             )
             withContext(Dispatchers.Main) {
                 try{
+                    Utils.stopAnimation(binding.animationLoading)
                     if(response.isSuccessful){
                         loginResponse = response.body()!!
                         if(loginResponse!=null){
-                            Utils.saveCurrentTime(
-                                MyApplication.appContext!!,
-                                Utils.getCurrentTimeStamp()
-                            )
+                            Utils.saveCurrentTime(MyApplication.appContext!!, Utils.getCurrentTimeStamp())
                             saveLoginInfo(loginResponse)
-                            goToMain()
                         }
-
                     }else{
-                        ToastUtils.showErrorToastFromJson(
-                            MyApplication.appContext!!,
-                            response.errorBody()!!.string())
+                        ToastUtils.showErrorToastFromJson(MyApplication.appContext!!, response.errorBody()!!.string())
                     }
                 }catch (e:Exception){
+                    Utils.stopAnimation(binding.animationLoading)
+                    ToastUtils.showErrorToast(MyApplication.appContext!!,e.message.toString())
+                }
+            }
+        }
+    }
+
+    private fun getBillBoard(){
+        val service = CinemasServices().webservice
+        Utils.startAnimation(binding.animationLoading)
+        CoroutineScope(Dispatchers.IO).launch {
+            withContext(Dispatchers.Main) {
+                var response = service.getBillBoard(Constants.DUMMY_COUNTRY_CODE,Constants.CINEMAS)
+                try{
+                    Utils.stopAnimation(binding.animationLoading)
+                    if(response.isSuccessful){
+                        saveBillBoardResponse(response.body()!!)
+                        getProfileInfo()
+                    }else{
+                        ToastUtils.showErrorToastFromJson(MyApplication.appContext!!,response.errorBody().toString())
+                    }
+                }catch (e:Exception){
+                    Utils.stopAnimation(binding.animationLoading)
+                    ToastUtils.showErrorToast(MyApplication.appContext!!,e.message.toString())
+                }
+            }
+        }
+    }
+
+    //Guadamos la información de la cartelera en la base de datos
+    private fun saveBillBoardResponse(response:BillBoardResponse){
+        var billBoardTable = BillBoardTable(data = Json.encodeToString(response))
+        billBoardViewModel.insert(billBoardTable)
+    }
+
+    private fun getProfileInfo() {
+        val service = CinemasServices().webservice
+        Utils.startAnimation(binding.animationLoading)
+        CoroutineScope(Dispatchers.IO).launch {
+            var response = service.Profile(Constants.DUMMY_COUNTRY_CODE)
+            withContext(Dispatchers.Main) {
+                try {
+                    Utils.stopAnimation(binding.animationLoading)
+                    if (response.isSuccessful) {
+                            saveProfileInfo(response.body()!!)
+                            goToMain()
+                    }else{
+                        ToastUtils.showErrorToastFromJson(MyApplication.appContext!!,
+                            response.errorBody().toString())
+                        goToMain()
+                    }
+                } catch (e: java.lang.Exception) {
+                    Utils.stopAnimation(binding.animationLoading)
+                    ToastUtils.showErrorToast(MyApplication.appContext!!,e.message.toString())
                     e.printStackTrace()
                 }
             }
         }
     }
 
+    //Convertimos a string nuestro modelo de profile y lo guardamos en un sharedPreferece.
+    fun saveProfileInfo(profileResponse: ProfileResponse){
+        MyApplication.appContext!!
+            .getSharedPreferences(Constants.CINEMAS,0).edit()
+            .putString(Constants.PROFILE,Json.encodeToString(profileResponse)).apply()
+    }
+
     fun saveLoginInfo(loginResponse: LoginResponse) {
         MyApplication.appContext!!
             .getSharedPreferences(Constants.CINEMAS, 0).edit()
-            .putString(Constants.TOKEN_TYPE, loginResponse.access_token)
+            .putString(Constants.ACCESS_TOKEN, loginResponse.access_token)
             .putString(Constants.TOKEN_TYPE, loginResponse.token_type)
             .putLong(Constants.EXPIRES_IN, loginResponse.expires_in)
             .putString(Constants.REFRESH_TOKEN,loginResponse.refresh_token)
@@ -112,6 +178,8 @@ class LoginActvity:AppCompatActivity() {
             .putString(Constants.ISSUED,loginResponse.issued)
             .putString(Constants.EXPIRES,loginResponse.expires)
             .apply()
+
+        getBillBoard()
     }
 
 
